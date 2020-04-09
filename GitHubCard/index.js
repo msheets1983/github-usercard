@@ -21,9 +21,6 @@ profilePromise
    Skip to Step 3.
 */
 
-
-
-
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
@@ -40,7 +37,6 @@ profilePromise
 const followersPromise = axios.get('https://api.github.com/users/msheets1983/followers')
 followersPromise
     .then(data => {
-        // console.log(data.data)
         const profiles = data.data
         profiles.forEach(profile => {
             console.log(profile)
@@ -49,7 +45,6 @@ followersPromise
                 .then(data => {
                     cards.appendChild(createCard(data.data))
                 })
-
 
             .catch(error => {
                 console.log('Error connecting to API', error)
@@ -93,7 +88,6 @@ function createCard(object) {
     const cardFollowing = document.createElement('p')
     const cardBio = document.createElement('p')
 
-
     card.classList.add('card')
     cardInfo.classList.add('card-info')
     cardName.classList.add('name')
@@ -103,8 +97,9 @@ function createCard(object) {
     cardName.textContent = `${object.name}`
     cardUsername.textContent = `${object.login}`
     cardLocation.textContent = `Location: ${object.location}`
-    cardProfile.textContent = `Profile:`
-    cardProfileUrl.href = `${object.html_url}`
+    cardProfile.textContent = `Profile: `
+    cardProfileUrl.textContent = object.html_url
+    cardProfileUrl.href = object.html_url
     cardFollowers.textContent = `Followers: ${object.followers}`
     cardFollowing.textContent = `Following: ${object.following}`
     cardBio.textContent = `Bio: ${object.bio}`
@@ -115,6 +110,7 @@ function createCard(object) {
     cardInfo.appendChild(cardUsername)
     cardInfo.appendChild(cardLocation)
     cardInfo.appendChild(cardProfile)
+    cardInfo.appendChild(cardProfileUrl)
     cardInfo.appendChild(cardFollowers)
     cardInfo.appendChild(cardFollowing)
     cardInfo.appendChild(cardBio)
@@ -123,11 +119,6 @@ function createCard(object) {
 
     return card
 }
-
-
-
-
-
 
 /*login: "msheets1983"
 id: 60555279
